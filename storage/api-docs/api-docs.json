@@ -1,0 +1,838 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API FoodCommerce",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register user baru",
+                "operationId": "536e0742b3d88911bba3f40ee2fb1ef9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "TestSW"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "TestSW@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Register sukses"
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login user",
+                "operationId": "c797e6b721ea8ea301717e3d06f63f46",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "TestSW@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login sukses, token dikembalikan"
+                    },
+                    "401": {
+                        "description": "Login gagal"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Logout user",
+                "operationId": "6ce03093ffc0da6b239032c73d78654f",
+                "responses": {
+                    "200": {
+                        "description": "Logout sukses"
+                    },
+                    "401": {
+                        "description": "Unauthorized - Token invalid atau expired"
+                    },
+                    "400": {
+                        "description": "Bad Request - Tidak ada token aktif"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Lihat semua produk",
+                "operationId": "d19fa87dbc92f7868482d9489ad9098a",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Kata kunci untuk mencari produk berdasarkan nama (case-insensitive)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Nomor halaman",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Jumlah produk per halaman",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Daftar produk berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "product_name": {
+                                                        "type": "string",
+                                                        "example": "Nasi Goreng"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": 15000
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "example": "Makanan"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Nasi goreng pedas"
+                                                    },
+                                                    "stock": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "nasi-goreng.jpg"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-05-11T10:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-05-11T10:00:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost:8000/api/products?page=1"
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 5
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost:8000/api/products?page=5"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost:8000/api/products?page=2"
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "null"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 50
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Terjadi kesalahan server"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Tambah produk baru",
+                "operationId": "226053d10d858cd2620eb1c39b52b2e9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "product_name",
+                                    "price",
+                                    "category",
+                                    "image"
+                                ],
+                                "properties": {
+                                    "product_name": {
+                                        "type": "string",
+                                        "example": "Nasi Goreng"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "string",
+                                        "example": 15000
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "example": "Makanan"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nasi di goreng pake bumbu khas indonesia"
+                                    },
+                                    "stock": {
+                                        "type": "integer",
+                                        "example": "20"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produk berhasil ditambahkan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Lihat detail produk",
+                "operationId": "1859b274a75ca9a893cb9c040f7807ae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail produk berhasil diambil"
+                    },
+                    "404": {
+                        "description": "Produk tidak ditemukan"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update produk",
+                "operationId": "9a895b40ad12a7ce441a005a260ca461",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "product_name": {
+                                        "type": "string",
+                                        "example": "Nasi Goreng Spesial"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "example": 18000
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produk berhasil diupdate"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Produk tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Hapus produk",
+                "operationId": "c897bf88d6b63595408f994dadf6a8cd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produk berhasil dihapus"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Produk tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/products/seller/{sellerId}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Lihat produk berdasarkan seller",
+                "operationId": "af923accb3cf8eef9fa03d65fa27524c",
+                "parameters": [
+                    {
+                        "name": "sellerId",
+                        "in": "path",
+                        "description": "ID seller",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Nomor halaman",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Jumlah produk per halaman",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produk berdasarkan seller berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "product_name": {
+                                                        "type": "string",
+                                                        "example": "Nasi Goreng"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": 15000
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "example": "Makanan"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Nasi goreng pedas"
+                                                    },
+                                                    "stock": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "nasi-goreng.jpg"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-05-11T10:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-05-11T10:00:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost:8000/api/products/seller/1?page=1"
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost:8000/api/products/seller/1?page=5"
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://localhost:8000/api/products/seller/1?page=2"
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": "null"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 50
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Seller tidak ditemukan"
+                    }
+                }
+            }
+        },
+        "/api/cart": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Lihat isi cart user",
+                "operationId": "cfc4b0ce16f8096c166c6c8dbfa28c35",
+                "responses": {
+                    "200": {
+                        "description": "Cart berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cart_items": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "product_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "product_name": {
+                                                        "type": "string",
+                                                        "example": "Nasi Goreng"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": 15000
+                                                    },
+                                                    "quantity": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "total_price": {
+                                                        "type": "integer",
+                                                        "example": 30000
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 45000
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cart/add": {
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Tambah item ke cart",
+                "operationId": "3f6813d2c2e362f1ef1696124319dc5d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Item berhasil ditambahkan ke cart"
+                    },
+                    "400": {
+                        "description": "Permintaan tidak valid"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cart/remove/{id}": {
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Hapus item dari cart",
+                "operationId": "923d8f0ed6021fcc3134dce94ed60af7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID item cart",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item berhasil dihapus dari cart"
+                    },
+                    "404": {
+                        "description": "Item tidak ditemukan"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cart/update/{id}": {
+            "put": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Update item di cart",
+                "operationId": "a31b11d0e0a7607abb7c7c01dac20479",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID cart item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Data yang mau diupdate",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "quantity"
+                                ],
+                                "properties": {
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item cart diupdate",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Item cart diupdate"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validasi gagal"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cart/clear": {
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Kosongkan seluruh isi cart user",
+                "operationId": "8a9bbf97d6487dce2186b21eacdd110c",
+                "responses": {
+                    "200": {
+                        "description": "Cart dikosongkan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cart dikosongkan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "JWT Bearer Token",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users"
+        },
+        {
+            "name": "Products",
+            "description": "Products"
+        },
+        {
+            "name": "Cart",
+            "description": "Cart"
+        }
+    ]
+}

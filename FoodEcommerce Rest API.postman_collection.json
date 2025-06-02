@@ -1,0 +1,728 @@
+{
+	"info": {
+		"_postman_id": "7620bcc5-1ffb-4354-b825-36c36a4be75f",
+		"name": "Wirausaha FoodEcommerce Rest API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31565639"
+	},
+	"item": [
+		{
+			"name": "User Auth",
+			"item": [
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "User Postman",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "testpostman@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Postman123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "testpostman@email.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Postman123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Option Group CRUD",
+					"item": [
+						{
+							"name": "Option CRUD",
+							"item": [
+								{
+									"name": "Create Option",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"option_group_id\": \"1\",\r\n    \"name\": \"Keju\",\r\n    \"additional_price\": \"5000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/option",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"option"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Option",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{   \r\n    \"name\": \"Kentang Goyeng\",\r\n    \"additional_price\": 7000\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/option/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"option",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Option Copy 2",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/option/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"option",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get Options groups",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"product_id\": 1,\r\n  \"name\": \"Topping Tambahan\",\r\n  \"is_required\": true,\r\n  \"is_multiple\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/option-group/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"option-group",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Options groups",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"product_id\": 1,\r\n  \"name\": \"Topping Tambahan\",\r\n  \"is_required\": true,\r\n  \"is_multiple\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/option-group",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"option-group"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Options groups",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"product_id\": 1,\r\n  \"name\": \"Topping Tambahan\",\r\n  \"is_required\": true,\r\n  \"is_multiple\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/option-group/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"option-group",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Options groups",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/option-group/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"option-group",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/products?search=burger",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "burger"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by Seller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/products/seller/{id}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"seller",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_name",
+									"value": "Burger Ayam",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "15000",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "makanan",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Burger Ayam dengan saus mayo yang enak",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Noct/Downloads/burger.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_name",
+									"value": "Burger Ayank",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "15000",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "makanan",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Burger Ayam dengan saus mayo yang enak",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Product_name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "description ",
+									"value": " ",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "image ",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/{id}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cart",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"product_id\": 1,\r\n  \"quantity\": 1,\r\n  \"note\": \"gak pedes ya\",\r\n  \"options\": [1, 4] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cart/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"product_id\": 1,\r\n  \"quantity\": 1,\r\n  \"note\": \"Gak pake cabe\",\r\n  \"options\": [2, 3] \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cart/update/5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"update",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove form Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cart/remove/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"remove",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/cart/clear",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "checkout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"product_id\": 1,\r\n  \"quantity\": 2,\r\n  \"note\": \"gak pedes ya\",\r\n  \"options\": [2, 4] \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/checkout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/seller/orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"seller",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "4|TYdREbL7fKK4McPiMhipN8qT0vYsYUgMmxWQiGtm0e75cf1a",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
