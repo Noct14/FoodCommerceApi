@@ -85,7 +85,6 @@ class ProductController extends Controller
             return response()->json(['message' => 'Produk tidak ditemukan'], 404);
         }
 
-        // Validasi Seller
         if ($product->seller_id !== Auth::id()) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
@@ -116,13 +115,8 @@ class ProductController extends Controller
             $validated['image_url'] = $imageUrl;
         }
 
-        // Filter nilai null atau string kosong
-        $filtered = array_filter($validated, fn($val) => $val !== null && $val !== '');
 
-        // // Update hanya jika ada field yang diubah
-        // if (empty($filtered)) {
-        //     return response()->json(['message' => 'Tidak ada data yang diubah.'], 400);
-        // }
+        $filtered = array_filter($validated, fn($val) => $val !== null && $val !== '');
 
         $product->update($filtered);
 
