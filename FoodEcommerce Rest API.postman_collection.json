@@ -705,31 +705,95 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Become Seller",
+			"item": [
 				{
-					"name": "Verify Order",
+					"name": "Become Seller",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "pickup_code",
-									"value": "",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\r\n  \"store_name\": \"Toko Mantap\",\r\n  \"phone\": \"081234567890\",\r\n  \"store_address\": \"Jl. Enak Banget No.10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/pickup/verify",
+							"raw": "{{base_url}}/api/seller/apply",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
-								"pickup",
-								"verify"
+								"seller",
+								"apply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Seller Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|C9D10Na340vigDF3fpAUkU5kGm42XSoOWNZRPFbc7588fb09",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/seller/requests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin reject Seller",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|C9D10Na340vigDF3fpAUkU5kGm42XSoOWNZRPFbc7588fb09",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/seller/requests/{id}/reject",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"requests",
+								"{id}",
+								"reject"
 							]
 						}
 					},

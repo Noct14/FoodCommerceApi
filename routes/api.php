@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\OptionGroupController;
 use App\Http\Controllers\Api\OptionController;
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\SellerRequestController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -56,3 +57,14 @@ Route::middleware('auth:sanctum')->get('/seller/orders', [OrderController::class
 //Payment Simulation
 Route::post('/checkout/pay', [PaymentController::class, 'pay']);
 Route::post('/pickup/verify', [PaymentController::class, 'verifyPickupCode']);
+
+
+//User to Seller
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/seller/apply', [SellerRequestController::class, 'apply']);
+
+    //admin only
+    Route::get('/seller/requests', [SellerRequestController::class, 'index'])->middleware('role:admin');
+    Route::post('/seller/requests/{id}/approve', [SellerRequestController::class, 'approve'])->middleware('role:admin');
+    Route::post('/seller/requests/{id}/reject', [SellerRequestController::class, 'reject'])->middleware('role:admin');
+});
