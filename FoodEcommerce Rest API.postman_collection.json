@@ -647,6 +647,97 @@
 			]
 		},
 		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Pay Simulation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"order_id\": 1,\r\n  \"payment_method\": \"Qris\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/checkout/pay",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"checkout",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pickup_code",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pickup/verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickup",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pickup_code",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pickup/verify",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pickup",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "checkout",
 			"request": {
 				"method": "POST",
@@ -698,7 +789,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "4|TYdREbL7fKK4McPiMhipN8qT0vYsYUgMmxWQiGtm0e75cf1a",
+				"value": "3|L83LgjPHPLIS78tM2NSjN8GgiEx1n2FGPSDyTfVY215fa618",
 				"type": "string"
 			}
 		]

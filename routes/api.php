@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
@@ -24,7 +25,7 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/seller/{sellerId}', [ProductController::class, 'productsBySeller']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/products', [ProductController::class, 'store']);
+    Route::post('/products', [ProductController::class, 'store'])->middleware('role:seller');
     Route::post('/products/{id}', [ProductController::class, 'update']);
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 });
@@ -52,3 +53,6 @@ Route::delete('/option/{id}', [OptionController::class, 'destroy']);
 Route::middleware('auth:sanctum')->post('/checkout', [CheckoutController::class, 'checkout']);
 Route::middleware('auth:sanctum')->get('/seller/orders', [OrderController::class, 'sellerOrderHistory']);
 
+//Payment Simulation
+Route::post('/checkout/pay', [PaymentController::class, 'pay']);
+Route::post('/pickup/verify', [PaymentController::class, 'verifyPickupCode']);
